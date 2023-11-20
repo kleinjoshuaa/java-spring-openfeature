@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Feature Flags Demo</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+
+<div class="container">
+    <h2 th:switch="${usePunImage}">Welcome to the Feature Flags Demo!</h2>
+    
+    <p th:case="on" class="message enabled" >
+        The new feature is enabled! <span class="emoji">👍</span>
+    </p>
+
+    <p th:case="off" class="message disabled">
+        The new feature is disabled.
+    </p>
+</div>
+
+</body>
+</html>
