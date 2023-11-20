@@ -8,15 +8,32 @@
 <body>
 
 <div class="container">
-    <h2 th:switch="${usePunImage}">Welcome to the Feature Flags Demo!</h2>
-    
-    <p th:case="on" class="message enabled" >
+    <h2 >Welcome to the Split OpenFeature Demo!</h2>
+    <div th:if="${usePunImage eq 'on'}">
+    <p  class="message enabled" >
         The new feature is enabled! <span class="emoji">👍</span>
     </p>
+        <p>Why not have a laugh while you're here?</p>
+        <img th:src="${memeUrl}">
+    </div>
+   <div th:if="${usePunImage eq 'off'}">
 
-    <p th:case="off" class="message disabled">
-        The new feature is disabled.
-    </p>
+
+       <p  class="message disabled">
+           The new feature is disabled.
+       </p>
+       <p>Why not have a laugh while you're here?</p>
+       <p th:text="${pun}">pun</p>
+
+   </div>
+    <button onClick="window.location.href=window.location.href">Click here to laugh again!</button>
+
+
+
+
+
+
+
 </div>
 
 </body>

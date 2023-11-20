@@ -10,7 +10,7 @@ import io.split.openfeature.SplitProvider;
 import io.split.client.SplitClient;
 import io.split.client.SplitClientConfig;
 import io.split.client.SplitFactoryBuilder;
-
+import com.example.servingwebcontent.AfterHook;
 
 public class OpenFeatureWrapper {
 
@@ -19,8 +19,11 @@ public class OpenFeatureWrapper {
     public static void initialize() {
         try {
             OpenFeatureAPI api = OpenFeatureAPI.getInstance();
-            api.setProvider(new SplitProvider("mj46ha9gf7nll3iep3t1eveg43qi82kj2mka")); // put server side SDK key here
+            String sdkKey = System.getProperty("sdkKey","NULL");
+            api.setProvider(new SplitProvider(sdkKey)); // put server side SDK key here
             client = api.getClient("CLIENT_NAME");
+            client.addHooks(new AfterHook());
+
         } catch (Exception e) {
             // Handle initialization exceptions (e.g., configuration issues)
             e.printStackTrace();
@@ -34,7 +37,7 @@ public class OpenFeatureWrapper {
 
         EvaluationContext context = new MutableContext(userName); // put user ID here
         String treatment = client.getStringValue(flagName, "default", context); // put flag name and default
-        System.out.println("Serving: " + treatment);
+
 
         return treatment;
     }
